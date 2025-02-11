@@ -23,3 +23,9 @@ b"\xf2\xf3\xf4\xf5\xf6\xf7\xf8\xf9\xfa\xfb\xfc\xfd\xfe\xff")
 
 ## disassemble.py
 Disassembles a Python formatted shellcode array with objdump.
+
+## wdbwrap.ps1
+Wrapper to run an application and attach WinDBG to it. Supports multiple breakpoints, halting, etc.
+```
+./wdbwrap.ps1 calc.exe
+```
