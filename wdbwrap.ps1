@@ -3,8 +3,20 @@ $breakpoints = @("kernel32!LoadLibraryA", "kernel32!GetProcAddress") # Set your 
 $halt = $true # Halt execution once the debugger attaches
 
 $path = $args[0]
-$process = Start-Process -FilePath $path -PassThru
-$procPid = $process.Id
+
+$procPid = 0;
+
+if ($path -match "iexplore.exe") {
+    $process = Start-Process -FilePath $path -PassThru;
+    $childProcess = Get-WmiObject Win32_Process | Where-Object { $_.ParentProcessId -eq $process.Id };
+    $procPid = $childProcess.ProcessId;
+}
+else {
+
+    $process = Start-Process -FilePath $path -PassThru
+    $procPid = $process.Id
+}
+
 Start-Sleep -Seconds 3
 
 $args = @("-p $procPid")
